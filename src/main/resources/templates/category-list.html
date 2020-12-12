@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Category List</title>
+</head>
+<body>
+<div class="container">
+    <br>
+<h2>All Categories</h2>
+<br>
+<a th:href="'/category/addCategoryForm'" class="btn btn-primary">Add Category</a>
+<br>
+    <br>
+  <table class="table table-striped table-bordered">
+      <tr>
+          <th>Category Name</th>
+          <th>Category Description</th>
+          <th>Action</th>
+      </tr>
+      <tr th:each="tempCategory : ${categories}">
+         <td><a th:href="${'/category/'+{tempCategory.id}+'/item/list'}"><span th:text="${tempCategory.name}"></span></a></td>
+          <td th:text="${tempCategory.description}"/>
+          <td>
+              <!-- Add "update" button/link -->
+              <a th:href="@{/category/updateCategoryForm(Id=${tempCategory.id})}" class="btn btn-success">
+
+                  Update
+              </a>
+
+              <!-- Add "delete" button/link -->
+              <a th:href="@{/category/delete(Id=${tempCategory.id})}" class="btn btn-danger">
+
+                 Delete
+              </a>
+      </tr>
+  </table>
+
+<form th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
+</div>
+</body>
+</html>

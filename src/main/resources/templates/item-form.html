@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <br>
+<h3>Item Form</h3>
+    <br>
+    <form action="#" th:action="'/category/'+${catId}+'/item/addItem'" th:object="${item}" method="POST">
+        <input type="hidden" th:field="*{id}" default=0/>
+        <label>Name : </label>
+        <div class="form-inline">
+            <input type="text" th:field="*{name}" class="form-contol mb-4 col-4" placeholder="Name">
+            <span th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"
+                  class="badge badge-danger ml-2 mb-4"></span>
+        </div>
+        <label>Price : </label>
+        <div class="form-inline">
+            <input type="text" th:field="*{price}" class="form-contol mb-4 col-4" placeholder="Price">
+            <span th:if="${#fields.hasErrors('price')}"
+                  th:errors="*{price}"
+                  class="badge badge-danger ml-2 mb-4"></span>
+        </div>
+        <label>Stock : </label>
+        <div class="form-inline">
+             <input type="text" th:field="*{stock}" class="form-contol mb-4 col-4" placeholder="Stock">
+            <span th:if="${#fields.hasErrors('stock')}"
+                  th:errors="*{stock}"
+                  class="badge badge-danger ml-2 mb-4"></span>
+        </div>
+        <input type="submit" class="btn btn-info col-2" value="Save"/>
+    </form>
+    <br>
+    <a th:href="'/category/'+${catId}+'/item/list'" class="link"> <-Back to Items</a>
+</div>
+</body>
+</html>

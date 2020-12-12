@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Item List</title>
+</head>
+<body>
+<div class="container">
+<h3 th:text="'Category : '+${category.name}"/>
+<br>
+<h4>Description</h4>
+<p th:text="${category.description}">
+<br>
+<p>Items in this Category</p>
+<br>
+<a th:href="'/category/'+${category.id}+'/item/addItemForm'" class="btn btn-primary">Add Item</a>
+<br>
+<br>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Item Name</th>
+
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="tempItem : ${items}">
+        <td th:text="${tempItem.name}"/>
+        <td th:text="${tempItem.price}"/>
+        <td th:text="${tempItem.stock}"/>
+        <td>
+            <!-- Add "update" button/link -->
+            <a th:href="'/category/'+${category.id}+'/item/updateItemForm?itemId='+${tempItem.id}" class="btn btn-success">
+
+                Update
+            </a>
+
+            <!-- Add "delete" button/link -->
+            <a th:href="'/category/'+${category.id}+'/item/delete?itemId='+${tempItem.id}" class="btn btn-danger">
+
+                Delete
+            </a>
+    </tr>
+</table>
+    <a th:href="'/category/list'" class="link"> <- Back to Categories</a>
+    <br>
+    <br>
+    <form th:action="@{/logout}">
+        <input type="submit" value="Logout">
+    </form>
+</div>
+
+
+</body>
+</html>
