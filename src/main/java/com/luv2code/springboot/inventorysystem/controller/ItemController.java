@@ -1,9 +1,9 @@
-package com.luv2code.springboot.InventorySystem.controller;
+package com.luv2code.springboot.inventorysystem.controller;
 
-import com.luv2code.springboot.InventorySystem.service.CategoryService;
-import com.luv2code.springboot.InventorySystem.entity.Category;
-import com.luv2code.springboot.InventorySystem.entity.Item;
-import com.luv2code.springboot.InventorySystem.service.ItemService;
+import com.luv2code.springboot.inventorysystem.service.CategoryService;
+import com.luv2code.springboot.inventorysystem.entity.Category;
+import com.luv2code.springboot.inventorysystem.entity.Item;
+import com.luv2code.springboot.inventorysystem.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +19,8 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+    private String itemForm = "item-form";
+
     @Autowired
     private CategoryService categoryService;
 
@@ -26,7 +28,7 @@ public class ItemController {
     public String findAll(@PathVariable("catId") int id, Model model){
        Category category = categoryService.findById(id);
        List<Item> itemList = category.getItems();
-        //System.out.println(itemList);
+
         model.addAttribute("category",category);
         model.addAttribute("items",itemList);
        return "item-list";
@@ -38,15 +40,15 @@ public class ItemController {
         model.addAttribute("catId",id);
         model.addAttribute("item",item);
 
-        return "item-form";
+        return itemForm;
     }
 
     @PostMapping("/addItem")
     public String addItem(@Valid @ModelAttribute("item") Item item, BindingResult bindingResult,@PathVariable("catId") int catId){
 
         if(bindingResult.hasErrors())
-            return "item-form";
-        itemService.save(item);
+            return itemForm;
+
         categoryService.addItem(catId,item);
 
         return "redirect:/category/"+catId+"/item/list";
@@ -58,7 +60,7 @@ public class ItemController {
         Item item = itemService.findById(theId);
         model.addAttribute("item",item);
         model.addAttribute("catId",catId);
-        return "item-form";
+        return itemForm;
 
     }
 

@@ -1,9 +1,11 @@
-package com.luv2code.springboot.InventorySystem.service;
+package com.luv2code.springboot.inventorysystem.service;
 
-import com.luv2code.springboot.InventorySystem.dao.ItemRepository;
-import com.luv2code.springboot.InventorySystem.entity.Item;
+import com.luv2code.springboot.inventorysystem.dao.ItemRepository;
+import com.luv2code.springboot.inventorysystem.entity.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -13,7 +15,12 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public Item findById(int id) {
-        return itemRepository.findById(id).get();
+         Optional<Item> optionalItem = itemRepository.findById(id);
+         if(!optionalItem.isPresent())
+         {
+             throw new IllegalArgumentException("Wrong Id");
+         }
+         return optionalItem.get();
     }
 
     @Override

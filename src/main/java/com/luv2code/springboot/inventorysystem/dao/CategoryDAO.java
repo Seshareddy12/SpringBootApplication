@@ -1,7 +1,7 @@
-package com.luv2code.springboot.InventorySystem.dao;
+package com.luv2code.springboot.inventorysystem.dao;
 
-import com.luv2code.springboot.InventorySystem.entity.Category;
-import com.luv2code.springboot.InventorySystem.entity.Item;
+import com.luv2code.springboot.inventorysystem.entity.Category;
+import com.luv2code.springboot.inventorysystem.entity.Item;
 
 import java.util.List;
 
